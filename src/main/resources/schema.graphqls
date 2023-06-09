@@ -23,16 +23,16 @@ type Mutation {
     updateBook(id: ID!, requestedBag: Int!, acceptedBag: Int!, totalAmount: Float!): Book!
     deleteBook(id: ID!): Boolean
 
-    addVehicleOwner(firstName: String!, lastName: String!, email: String!, password: String!, address: String!,phoneNumber: String!, vehicleName: String!, vehicleType: String!, bagCapacity: String!):VehicleOwner!
-    updateVehicleOwner(id: ID!, firstName: String!, lastName: String, email: String, password: String, address: String,phoneNumber: String, vehicleName: String, vehicleType: String, bagCapacity: String):VehicleOwner!
+    addVehicleOwner(firstName: String!, lastName: String!, email: String!, password: String!, address: String,phoneNumber: String, vehicleName: String, vehicleType: String, bagCapacity: String):VehicleOwner!
+    updateVehicleOwner(id: ID!, firstName: String, lastName: String, email: String, password: String, address: String,phoneNumber: String, vehicleName: String, vehicleType: String, bagCapacity: String):VehicleOwner!
     deleteVehicleOwner(id: ID!): Boolean
 
     addSchedule(date: String!, maxAllowedBag: Int!, amountPerBag: Float!, departureTime: String!, departureLocation: String!, destinationLocation: String!, vehicleOwner_id: ID!):Schedule!
     updateSchedule(id: ID!, date: String!, maxAllowedBag: Int!, amountPerBag: Float!, departureTime: String!, departureLocation: String!, destinationLocation: String!,):Schedule!
     deleteSchedule(id: ID!):Boolean
 
-    addFarmer(firstName: String!, lastName:String!, email: String!, password: String!, address: String!, phoneNumber: String!, currentCrops: String!, futureCrops: String!):Farmer!
-    updateFarmer(id: ID!, firstName: String!, lastName:String!, email: String!, password: String!, address: String!, phoneNumber: String!, currentCrops: String!, futureCrops: String!):Farmer!
+    addFarmer(firstName: String!, lastName:String!, email: String!, password: String!, address: String, phoneNumber: String, currentCrops: String, futureCrops: String):Farmer!
+    updateFarmer(id: ID!, firstName: String, lastName:String, email: String, password: String, address: String, phoneNumber: String, currentCrops: String, futureCrops: String):Farmer!
     deleteFarmer(id: ID!):Boolean
 
     loginUser(type:String!, token:String!, email:String!, password:String!):FarmerLogin!
@@ -62,11 +62,11 @@ type VehicleOwner {
     lastName: String!
     email: String!
     password: String!
-    address: String!
-    phoneNumber: String!
-    vehicleName: String!
-    vehicleType: String!
-    bagCapacity: String!
+    address: String
+    phoneNumber: String
+    vehicleName: String
+    vehicleType: String
+    bagCapacity: String
 }
 
 type Book {
@@ -95,8 +95,8 @@ type Farmer {
     lastName:String!
     email: String!
     password: String!
-    address: String!
-    phoneNumber: String!
-    currentCrops: String!
-    futureCrops: String!
+    address: String
+    phoneNumber: String
+    currentCrops: String
+    futureCrops: String
 }
