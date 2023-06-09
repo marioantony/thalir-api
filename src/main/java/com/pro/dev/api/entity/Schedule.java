@@ -28,6 +28,12 @@ public class Schedule implements Serializable {
     @Column(name = "departureLocation")
     private String departureLocation;
 
+    @Column(name = "destinationLocation")
+    private String destinationLocation;
+
+    @Column(name = "amountPerBag")
+    private Double amountPerBag;
+
     @ManyToOne
     @JoinColumn(name = "vehicleOwner_id", nullable = false, updatable = false)
     private VehicleOwner vehicleOwner;
@@ -70,6 +76,22 @@ public class Schedule implements Serializable {
 
     public void setDepartureLocation(String departureLocation) {
         this.departureLocation = departureLocation;
+    }
+
+    public String getDestinationLocation() {
+        return destinationLocation;
+    }
+
+    public void setDestinationLocation(String destinationLocation) {
+        this.destinationLocation = destinationLocation;
+    }
+
+    public Double getAmountPerBag() {
+        return amountPerBag;
+    }
+
+    public void setAmountPerBag(Double amountPerBag) {
+        this.amountPerBag = amountPerBag;
     }
 
     public VehicleOwner getVehicleOwner() {

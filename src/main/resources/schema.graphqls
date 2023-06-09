@@ -1,13 +1,11 @@
 type Query {
   allAdmins: [Admin]
-  allAuthors: [Author]
   allBooks: [Book]
   allVehicleOwners:[VehicleOwner]
   allSchedules:[Schedule]
   allFarmers:[Farmer]
   admin(id: ID!): Admin
   book(id: ID!): Book
-  author(id: ID!): Author
   vehicleOwner(id:ID!):VehicleOwner
   schedule(id: ID!):Schedule
   farmer(id: ID!):Farmer
@@ -15,25 +13,21 @@ type Query {
 }
 
 type Mutation {
-  addAdmin(username: String!, password: String!):Admin!
-  updateAdmin(id: ID!, username: String!, password: String!): Admin!
-  deleteAdmin(id: ID!): Boolean
+    addAdmin(username: String!, password: String!):Admin!
+    updateAdmin(id: ID!, username: String!, password: String!): Admin!
+    deleteAdmin(id: ID!): Boolean
 
-  addAuthor(firstname: String!): Author!
-  updateAuthor(id: ID!, firstname: String!): Author!
-  deleteAuthor(id: ID!): Boolean
+    addBook(requestedBag: Int!, acceptedBag: Int!, totalAmount: Float!, schedule_id: ID!, farmer_id: ID!): Book!
+    updateBook(id: ID!, requestedBag: Int!, acceptedBag: Int!, totalAmount: Float!): Book!
+    deleteBook(id: ID!): Boolean
 
-  addBook(requestedBag: Int!, acceptedBag: Int!, amountPerBag: Float!, totalAmount: Float!, schedule_id: ID!, farmer_id: ID!): Book!
-  updateBook(id: ID!, requestedBag: Int!, acceptedBag: Int!, amountPerBag: Float!, totalAmount: Float!): Book!
-  deleteBook(id: ID!): Boolean
+    addVehicleOwner(firstName: String!, lastName: String!, email: String!, password: String!, address: String!,phoneNumber: String!, vehicleName: String!, vehicleType: String!, bagCapacity: String!):VehicleOwner!
+    updateVehicleOwner(id: ID!, firstName: String!, lastName: String, email: String, password: String, address: String,phoneNumber: String, vehicleName: String, vehicleType: String, bagCapacity: String):VehicleOwner!
+    deleteVehicleOwner(id: ID!): Boolean
 
-  addVehicleOwner(firstName: String!, lastName: String!, email: String!, password: String!, address: String!,phoneNumber: String!, vehicleName: String!, vehicleType: String!, bagCapacity: String!):VehicleOwner!
-  updateVehicleOwner(id: ID!, firstName: String!, lastName: String, email: String, password: String, address: String,phoneNumber: String, vehicleName: String, vehicleType: String, bagCapacity: String):VehicleOwner!
-  deleteVehicleOwner(id: ID!): Boolean
-
-  addSchedule(date: String!, maxAllowedBag: Int!, departureTime: String!, departureLocation: String!, vehicleOwner_id: ID!):Schedule!
-  updateSchedule(id: ID!, date: String!, maxAllowedBag: Int!, departureTime: String!, departureLocation: String!):Schedule!
-  deleteSchedule(id: ID!):Boolean
+    addSchedule(date: String!, maxAllowedBag: Int!, amountPerBag: Float!, departureTime: String!, departureLocation: String!, destinationLocation: String!, vehicleOwner_id: ID!):Schedule!
+    updateSchedule(id: ID!, date: String!, maxAllowedBag: Int!, amountPerBag: Float!, departureTime: String!, departureLocation: String!, destinationLocation: String!,):Schedule!
+    deleteSchedule(id: ID!):Boolean
 
   addFarmer(firstName: String!, lastName:String!, email: String!, password: String!, address: String!, phoneNumber: String!, currentCrops: String!, futureCrops: String!):Farmer!
   updateFarmer(id: ID!, firstName: String!, lastName:String!, email: String!, password: String!, address: String!, phoneNumber: String!, currentCrops: String!, futureCrops: String!):Farmer!
@@ -42,15 +36,11 @@ type Mutation {
 }
 
 type Admin {
-  id: ID
-  username: String!
-  password: String!
+    id: ID
+    username: String!
+    password: String!
 }
 
-type Author {
-  id: ID
-  firstname: String!
-}
 
 type VehicleOwner {
     id: ID
@@ -66,21 +56,22 @@ type VehicleOwner {
 }
 
 type Book {
-  id: ID
-  requestedBag: Int
-  acceptedBag: Int!
-  amountPerBag: Float!
-  totalAmount: Float!
-  schedule: Schedule!
-  farmer: Farmer!
+    id: ID
+    requestedBag: Int
+    acceptedBag: Int!
+    totalAmount: Float!
+    schedule: Schedule!
+    farmer: Farmer!
 }
 
 type Schedule {
     id: ID
     date: String!
     maxAllowedBag: Int!
+    amountPerBag: Float!
     departureTime: String!
     departureLocation: String!
+    destinationLocation: String!
     vehicleOwner: VehicleOwner!
 }
 

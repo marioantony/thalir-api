@@ -2,6 +2,7 @@ package com.pro.dev.api.resolver;
 
 import com.pro.dev.api.entity.*;
 import com.pro.dev.api.repository.*;
+import graphql.GraphQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
@@ -12,9 +13,6 @@ import java.time.LocalDateTime;
 public class Mutation implements GraphQLMutationResolver {
 	@Autowired
 	private AdminRepository adminRepository;
-
-	@Autowired
-	private AuthorRepository authorRepository;
 
 	@Autowired
 	private VehicleOwnerRepository vehicleOwnerRepository;
@@ -28,13 +26,12 @@ public class Mutation implements GraphQLMutationResolver {
 	@Autowired
 	private FarmerRepository farmerRepository;
 
-	public Book addBook (Integer requestedBag, Integer acceptedBag, Double amountPerBag, Double totalAmount, Long schedule_id, Long farmer_id){
+	public Book addBook (Integer requestedBag, Integer acceptedBag, Double totalAmount, Long schedule_id, Long farmer_id){
 		Schedule schedule = scheduleRepository.findById(schedule_id).orElseGet(null);
 		Farmer farmer = farmerRepository.findById(farmer_id).orElseGet(null);
 		Book book = new Book();
 		book.setRequestedBag(requestedBag);
 		book.setAcceptedBag(acceptedBag);
-		book.setAmountPerBag(amountPerBag);
 		book.setTotalAmount(totalAmount);
 		book.setFarmer(farmer);
 		book.setSchedule(schedule);
@@ -42,12 +39,11 @@ public class Mutation implements GraphQLMutationResolver {
 		return bookRepository.saveAndFlush(book);
 	}
 
-	public Book updateBook (Long id, Integer requestedBag, Integer acceptedBag, Double amountPerBag, Double totalAmount){
+	public Book updateBook (Long id, Integer requestedBag, Integer acceptedBag, Double totalAmount){
 		Book book = new Book();
 		book.setId(id);
 		book.setRequestedBag(requestedBag);
 		book.setAcceptedBag(acceptedBag);
-		book.setAmountPerBag(amountPerBag);
 		book.setTotalAmount(totalAmount);
 
 		return bookRepository.saveAndFlush(book);
@@ -58,26 +54,30 @@ public class Mutation implements GraphQLMutationResolver {
 		return true;
 	}
 
-	public Schedule addSchedule (String date, Integer maxAllowedBag, String departureTime, String departureLocation, Long vehicleOwner_id){
+	public Schedule addSchedule (String date, Integer maxAllowedBag, Double amountPerBag, String departureTime, String departureLocation,String destinationLocation, Long vehicleOwner_id){
 		VehicleOwner vehicleOwner = vehicleOwnerRepository.findById(vehicleOwner_id).orElseGet(null);
 		Schedule schedule = new Schedule();
 		schedule.setDate(date);
 		schedule.setMaxAllowedBag(maxAllowedBag);
+		schedule.setAmountPerBag(amountPerBag);
 		schedule.setDepartureTime(departureTime);
 		schedule.setDepartureLocation(departureLocation);
+		schedule.setDestinationLocation(destinationLocation);
 		schedule.setVehicleOwner(vehicleOwner);
 
 		return scheduleRepository.saveAndFlush(schedule);
 	}
 
-	public Schedule updateSchedule (Long id, String date, Integer maxAllowedBag, String departureTime, String departureLocation){
+	public Schedule updateSchedule (Long id, String date, Integer maxAllowedBag, Double amountPerBag, String departureTime, String departureLocation, String destinationLocation){
 
 		Schedule schedule = new Schedule();
 		schedule.setId(id);
 		schedule.setDate(date);
 		schedule.setMaxAllowedBag(maxAllowedBag);
+		schedule.setAmountPerBag(amountPerBag);
 		schedule.setDepartureTime(departureTime);
 		schedule.setDepartureLocation(departureLocation);
+		schedule.setDestinationLocation(destinationLocation);
 
 		return scheduleRepository.saveAndFlush(schedule);
 	}
@@ -178,48 +178,5 @@ public class Mutation implements GraphQLMutationResolver {
 		adminRepository.deleteById(id);
 		return true;
 	}
-
-	public Author addAuthor(String firstname) {
-		Author author = new Author();
-		author.setName(firstname);
-
-		return authorRepository.saveAndFlush(author);
-	}
-
-	public Author updateAuthor(Long id, String firstname) {
-		Author author = new Author();
-		author.setId(id);
-		author.setName(firstname);
-
-		return authorRepository.saveAndFlush(author);
-	}
-
-	public Boolean deleteAuthor(Long id) {
-		authorRepository.deleteById(id);
-		return true;
-	}
-
-//	public Book addBook(String name, Double price, Long author_id) {
-//		Author author = authorRepository.findById(author_id).
-//		orElseGet(null);
-//		Book book = new Book();
-//		book.setName(name);
-//		book.setPrice(price);
-//		book.setAuthor(author);
-//		return bookRepository.saveAndFlush(book);
-//	}
-//
-//	public Book updateBook(Long id, String name, Double price) {
-//		Book book = new Book();
-//		book.setId(id);
-//		book.setName(name);
-//		book.setPrice(price);
-//		return bookRepository.saveAndFlush(book);
-//	}
-//
-//	public Boolean deleteBook(Long id) {
-//		bookRepository.deleteById(id);
-//		return true;
-//	}
 
 }

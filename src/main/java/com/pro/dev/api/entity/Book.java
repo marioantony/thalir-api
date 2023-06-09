@@ -27,9 +27,6 @@ public class Book implements Serializable {
 	@Column(name = "acceptedBag")
 	private Integer acceptedBag;
 
-	@Column(name = "amountPerBag")
-	private Double amountPerBag;
-
 	@Column(name = "totalAmount")
 	private Double totalAmount;
 
@@ -63,14 +60,6 @@ public class Book implements Serializable {
 
 	public void setAcceptedBag(Integer acceptedBag) {
 		this.acceptedBag = acceptedBag;
-	}
-
-	public Double getAmountPerBag() {
-		return amountPerBag;
-	}
-
-	public void setAmountPerBag(Double amountPerBag) {
-		this.amountPerBag = amountPerBag;
 	}
 
 	public Double getTotalAmount() {

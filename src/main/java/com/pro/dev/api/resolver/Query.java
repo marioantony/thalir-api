@@ -13,9 +13,6 @@ public class Query implements GraphQLQueryResolver {
 	private AdminRepository adminRepository;
 
 	@Autowired
-	private AuthorRepository authorRepository;
-
-	@Autowired
 	private FarmerRepository farmerRepository;
 
 	@Autowired
@@ -23,9 +20,6 @@ public class Query implements GraphQLQueryResolver {
 
 	@Autowired
 	private ScheduleRepository scheduleRepository;
-
-//	@Autowired
-//	private  OrderRepository orderRepository;
 
 	@Autowired
 	private BookRepository bookRepository;
@@ -56,13 +50,5 @@ public class Query implements GraphQLQueryResolver {
 
 	public Book book(Long id) {
 		return bookRepository.findById(id).orElseGet(null);
-	}
-
-	public Iterable<Author> allAuthors() {
-		return authorRepository.findAll();
-	}
-
-	public Author author(Long id) {
-		return authorRepository.findById(id).orElseGet(null);
 	}
 }
