@@ -24,6 +24,13 @@ public class Query implements GraphQLQueryResolver {
 	@Autowired
 	private BookRepository bookRepository;
 
+	@Autowired
+	private LoginRepository loginRepository;
+
+	public  Iterable<FarmerLogin> loginUsers(){ return loginRepository.findAll();}
+
+	public FarmerLogin farmerLogin(Long id) { return loginRepository.findById(id).orElseGet(null);}
+
 	public  Iterable<Farmer> allFarmers(){ return farmerRepository.findAll();}
 
 	public Farmer farmer(Long id) { return farmerRepository.findById(id).orElseGet(null);}

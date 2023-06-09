@@ -1,14 +1,16 @@
 type Query {
-  allAdmins: [Admin]
-  allBooks: [Book]
-  allVehicleOwners:[VehicleOwner]
-  allSchedules:[Schedule]
-  allFarmers:[Farmer]
-  admin(id: ID!): Admin
-  book(id: ID!): Book
-  vehicleOwner(id:ID!):VehicleOwner
-  schedule(id: ID!):Schedule
-  farmer(id: ID!):Farmer
+    allAdmins: [Admin]
+    allBooks: [Book]
+    allVehicleOwners:[VehicleOwner]
+    allSchedules:[Schedule]
+    allFarmers:[Farmer]
+    loginUsers:[FarmerLogin]
+    admin(id: ID!): Admin
+    book(id: ID!): Book
+    vehicleOwner(id:ID!):VehicleOwner
+    schedule(id: ID!):Schedule
+    farmer(id: ID!):Farmer
+    farmerLogin(id: ID!):FarmerLogin
 
 }
 
@@ -29,11 +31,23 @@ type Mutation {
     updateSchedule(id: ID!, date: String!, maxAllowedBag: Int!, amountPerBag: Float!, departureTime: String!, departureLocation: String!, destinationLocation: String!,):Schedule!
     deleteSchedule(id: ID!):Boolean
 
-  addFarmer(firstName: String!, lastName:String!, email: String!, password: String!, address: String!, phoneNumber: String!, currentCrops: String!, futureCrops: String!):Farmer!
-  updateFarmer(id: ID!, firstName: String!, lastName:String!, email: String!, password: String!, address: String!, phoneNumber: String!, currentCrops: String!, futureCrops: String!):Farmer!
-  deleteFarmer(id: ID!):Boolean
+    addFarmer(firstName: String!, lastName:String!, email: String!, password: String!, address: String!, phoneNumber: String!, currentCrops: String!, futureCrops: String!):Farmer!
+    updateFarmer(id: ID!, firstName: String!, lastName:String!, email: String!, password: String!, address: String!, phoneNumber: String!, currentCrops: String!, futureCrops: String!):Farmer!
+    deleteFarmer(id: ID!):Boolean
+
+    loginUser(type:String!, token:String!, email:String!, password:String!):FarmerLogin!
+    logoutUser(id:ID!):Boolean
 
 }
+
+type FarmerLogin {
+    id: ID
+    type: String!
+    token: String!
+    email: String!
+    password: String!
+}
+
 
 type Admin {
     id: ID

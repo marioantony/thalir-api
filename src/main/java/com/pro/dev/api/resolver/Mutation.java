@@ -26,6 +26,43 @@ public class Mutation implements GraphQLMutationResolver {
 	@Autowired
 	private FarmerRepository farmerRepository;
 
+	@Autowired
+	private LoginRepository loginRepository;
+
+	public FarmerLogin loginUser (String type, String token, String email, String password){
+		FarmerLogin farmerLogin = new FarmerLogin();
+
+		if (type.equals("farmer")){
+			Farmer farmer= farmerRepository.getByEmail(email);
+			if (farmer.getPassword().equals(password)){
+				farmerLogin.setType(type);
+				farmerLogin.setToken(token);
+				farmerLogin.setEmail(email);
+				farmerLogin.setPassword(password);
+
+				return loginRepository.saveAndFlush(farmerLogin);
+			}
+			throw new GraphQLException("Invalid credentials");
+		}
+		else{
+			VehicleOwner vehicleOwner= vehicleOwnerRepository.getByEmail(email);
+			if (vehicleOwner.getPassword().equals(password)){
+				farmerLogin.setType(type);
+				farmerLogin.setToken(token);
+				farmerLogin.setEmail(email);
+				farmerLogin.setPassword(password);
+
+				return loginRepository.saveAndFlush(farmerLogin);
+			}
+			throw new GraphQLException("Invalid credentials");
+		}
+	}
+
+	public Boolean logoutUser (Long id) {
+		loginRepository.deleteById(id);
+		return true;
+	}
+
 	public Book addBook (Integer requestedBag, Integer acceptedBag, Double totalAmount, Long schedule_id, Long farmer_id){
 		Schedule schedule = scheduleRepository.findById(schedule_id).orElseGet(null);
 		Farmer farmer = farmerRepository.findById(farmer_id).orElseGet(null);
