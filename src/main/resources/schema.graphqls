@@ -19,7 +19,7 @@ type Mutation {
     updateAdmin(id: ID!, username: String!, password: String!): Admin!
     deleteAdmin(id: ID!): Boolean
 
-    addBook(requestedBag: Int!, acceptedBag: Int!, totalAmount: Float!, schedule_id: ID!, farmer_id: ID!): Book!
+    addBook(requestedBag: Int!, acceptedBag: Int, totalAmount: Float, schedule_id: ID!, farmer_id: ID!): Book!
     updateBook(id: ID!, requestedBag: Int!, acceptedBag: Int!, totalAmount: Float!): Book!
     deleteBook(id: ID!): Boolean
 
@@ -72,8 +72,8 @@ type VehicleOwner {
 type Book {
     id: ID
     requestedBag: Int
-    acceptedBag: Int!
-    totalAmount: Float!
+    acceptedBag: Int
+    totalAmount: Float
     schedule: Schedule!
     farmer: Farmer!
 }
